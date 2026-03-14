@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Mechanical Design Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2ee;
+    --bg2: #ede9e3;
+    --ink: #1a1714;
+    --ink2: #4a4540;
+    --accent: #d4522a;
+    --accent2: #e8845e;
+    --steel: #8fa3b1;
+    --card: #ffffff;
+    --border: rgba(26,23,20,0.10);
+    --shadow: 0 4px 32px rgba(26,23,20,0.08);
+    --r: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(245,242,238,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    letter-spacing: -0.02em; color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--ink2); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--ink); color: #fff !important;
+    padding: 9px 20px; border-radius: 50px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; color: #fff !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 0;
+    padding: 120px 48px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg-shape {
+    position: absolute; top: -100px; right: -120px;
+    width: 680px; height: 680px; border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, #e8845e33, #d4522a11 60%, transparent 80%);
+    pointer-events: none;
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(26,23,20,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,23,20,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
+  }
+  .hero-left { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 32px; height: 2px; background: var(--accent);
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 5.5vw, 5.2rem);
+    font-weight: 800; line-height: 1.0;
+    letter-spacing: -0.03em; color: var(--ink);
+    margin-bottom: 28px;
+  }
+  h1 .line2 { color: var(--accent); display: block; }
+  .hero-desc {
+    font-size: 1.1rem; line-height: 1.75; color: var(--ink2);
+    max-width: 480px; margin-bottom: 44px; font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: #fff;
+    padding: 15px 32px; border-radius: 50px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(212,82,42,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(212,82,42,0.4); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent; color: var(--ink);
+    padding: 15px 32px; border-radius: 50px; border: 1.5px solid var(--border);
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--ink); background: var(--bg2); }
+
+  .hero-right {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .hero-card {
+    width: 380px;
+    background: var(--card); border-radius: 24px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow), 0 2px 0 0 var(--accent) inset;
+    overflow: hidden; position: relative;
+  }
+  .hero-card-top {
+    background: var(--ink); padding: 36px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .hero-avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800;
+    color: #fff; flex-shrink: 0;
+  }
+  .hero-card-name { color: #fff; }
+  .hero-card-name h3 {
+    font-family: 'Syne', sans-serif; font-size: 1.1rem;
+    font-weight: 700; margin-bottom: 4px;
+  }
+  .hero-card-name p { font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+  .hero-card-body { padding: 28px 36px; }
+  .stat-row { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+  .stat {
+    flex: 1; text-align: center;
+    background: var(--bg); border-radius: 12px; padding: 16px 10px;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 1.6rem;
+    font-weight: 800; color: var(--accent); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 0.72rem; color: var(--ink2); text-transform: uppercase; letter-spacing: 0.06em; }
+  .expertise-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 0.78rem; padding: 5px 13px; border-radius: 50px;
+    background: var(--bg2); color: var(--ink2); font-weight: 500;
+  }
+  .tag.accent { background: rgba(212,82,42,0.1); color: var(--accent); }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 100px 48px; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+  }
+  .section-label::before { content: ''; width: 24px; height: 2px; background: var(--accent); }
+  h2 {
+    font-family: 'Syne', sans-serif; font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.025em; line-height: 1.15;
+    color: var(--ink); margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--ink2); line-height: 1.7;
+    max-width: 520px; margin-bottom: 60px; font-weight: 300;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .about-image-block {
+    position: relative;
+  }
+  .about-photo-placeholder {
+    width: 100%; aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--bg2) 0%, #ddd8d0 100%);
+    border-radius: 20px; border: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; color: var(--ink2);
+    font-size: 0.85rem; position: relative; overflow: hidden;
+  }
+  .about-photo-placeholder svg { opacity: 0.35; }
+  .about-photo-placeholder span { opacity: 0.5; font-style: italic; }
+  .about-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--accent); color: #fff;
+    border-radius: 16px; padding: 20px 24px;
+    box-shadow: 0 8px 24px rgba(212,82,42,0.35);
+  }
+  .about-badge-num {
+    font-family: 'Syne', sans-serif; font-size: 2rem;
+    font-weight: 800; line-height: 1;
+  }
+  .about-badge-text { font-size: 0.78rem; opacity: 0.85; }
+  .about-text h2 { margin-bottom: 20px; }
+  .about-body {
+    font-size: 1rem; line-height: 1.8; color: var(--ink2);
+    margin-bottom: 36px; font-weight: 300;
+  }
+  .about-highlights { display: flex; flex-direction: column; gap: 14px; }
+  .highlight-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 18px; background: var(--card); border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .highlight-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(212,82,42,0.1); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; font-size: 1rem;
+  }
+  .highlight-text strong { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; }
+  .highlight-text span { font-size: 0.82rem; color: var(--ink2); }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--bg2); }
+  .exp-timeline { position: relative; padding-left: 32px; }
+  .exp-timeline::before {
+    content: ''; position: absolute; left: 7px; top: 6px; bottom: 6px;
+    width: 2px; background: linear-gradient(to bottom, var(--accent), var(--bg2));
+    border-radius: 2px;
+  }
+  .exp-item {
+    position: relative; margin-bottom: 48px;
+    background: var(--card); border-radius: 16px; padding: 28px 32px;
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .exp-item::before {
+    content: ''; position: absolute; left: -29px; top: 32px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--bg2);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 16px; }
+  .exp-title {
+    font-family: 'Syne', sans-serif; font-size: 1.05rem;
+    font-weight: 700; color: var(--ink);
+  }
+  .exp-company { font-size: 0.9rem; color: var(--accent); font-weight: 500; margin-bottom: 4px; }
+  .exp-period {
+    font-size: 0.78rem; color: var(--ink2); background: var(--bg);
+    padding: 4px 12px; border-radius: 50px; white-space: nowrap;
+    flex-shrink: 0; height: fit-content;
+  }
+  .exp-desc { font-size: 0.9rem; color: var(--ink2); line-height: 1.7; margin-bottom: 16px; font-weight: 300; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .project-card {
+    background: var(--card); border-radius: 20px;
+    border: 1px solid var(--border); overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+  }
+  .project-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(26,23,20,0.12); }
+  .project-card.featured { grid-column: span 2; }
+  .project-img {
+    height: 200px; background: linear-gradient(135deg, var(--bg2), #ddd8d0);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; position: relative; overflow: hidden;
+  }
+  .project-img.alt { background: linear-gradient(135deg, #e8d5c8, #f0e4d8); }
+  .project-img.dark { background: linear-gradient(135deg, var(--ink), #2d2a27); }
+  .project-img .img-label {
+    font-size: 0.75rem; color: rgba(255,255,255,0.5);
+    position: absolute; bottom: 12px; left: 14px;
+    font-style: italic;
+  }
+  .project-img.dark .img-label { color: rgba(255,255,255,0.4); }
+  .project-body { padding: 24px; }
+  .project-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .project-cat {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+  }
+  .project-year { font-size: 0.78rem; color: var(--ink2); }
+  .project-title {
+    font-family: 'Syne', sans-serif; font-size: 1.05rem;
+    font-weight: 700; color: var(--ink); margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .project-desc { font-size: 0.86rem; color: var(--ink2); line-height: 1.65; font-weight: 300; }
+  .project-footer {
+    padding: 16px 24px; border-top: 1px solid var(--border);
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--ink); }
+  #skills .section-label { color: var(--accent2); }
+  #skills .section-label::before { background: var(--accent2); }
+  #skills h2 { color: #fff; }
+  #skills .section-sub { color: rgba(255,255,255,0.5); }
+  .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .skill-group {
+    background: rgba(255,255,255,0.05); border-radius: 16px;
+    padding: 28px 24px; border: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.2s;
+  }
+  .skill-group:hover { background: rgba(255,255,255,0.08); }
+  .skill-group-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(212,82,42,0.2); display: flex; align-items: center;
+    justify-content: center; font-size: 1.3rem; margin-bottom: 16px;
+  }
+  .skill-group-title {
+    font-family: 'Syne', sans-serif; font-size: 0.95rem;
+    font-weight: 700; color: #fff; margin-bottom: 16px;
+  }
+  .skill-list { display: flex; flex-direction: column; gap: 10px; }
+  .skill-item { display: flex; flex-direction: column; gap: 5px; }
+  .skill-item-header { display: flex; justify-content: space-between; }
+  .skill-name { font-size: 0.82rem; color: rgba(255,255,255,0.7); }
+  .skill-pct { font-size: 0.78rem; color: var(--accent2); }
+  .skill-bar {
+    height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 1s ease;
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg2); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-info h2 { margin-bottom: 20px; }
+  .contact-info p {
+    font-size: 1rem; color: var(--ink2); line-height: 1.75;
+    margin-bottom: 40px; font-weight: 300;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 20px; background: var(--card); border-radius: 14px;
+    border: 1px solid var(--border); text-decoration: none;
+    color: var(--ink); transition: border-color 0.2s, transform 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+  .contact-link-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(212,82,42,0.1); display: flex; align-items: center;
+    justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-link-text strong { display: block; font-size: 0.9rem; font-weight: 600; }
+  .contact-link-text span { font-size: 0.82rem; color: var(--ink2); }
+  .contact-form { background: var(--card); border-radius: 20px; padding: 36px; border: 1px solid var(--border); }
+  .form-title {
+    font-family: 'Syne', sans-serif; font-size: 1.15rem;
+    font-weight: 700; margin-bottom: 28px; color: var(--ink);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .form-group label { font-size: 0.82rem; font-weight: 500; color: var(--ink2); }
+  .form-group input, .form-group textarea, .form-group select {
+    padding: 13px 16px; border-radius: 10px;
+    border: 1.5px solid var(--border); background: var(--bg);
+    font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--ink);
+    outline: none; transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea { min-height: 110px; }
+  .btn-submit {
+    width: 100%; padding: 15px; border-radius: 10px;
+    background: var(--accent); color: #fff; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-submit:hover { background: #c04520; transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 48px; background: var(--ink);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  footer p { font-size: 0.82rem; color: rgba(255,255,255,0.35); }
+  .footer-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 1rem; color: rgba(255,255,255,0.6); text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent); }
+
+  /* ── CLICKABLE PROJECT IMAGE ── */
+  .clickable-img {
+    position: relative; cursor: pointer; overflow: hidden;
+  }
+  .clickable-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: transform 0.45s ease;
+  }
+  .clickable-img:hover img { transform: scale(1.06); }
+  .img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,23,20,0.72) 0%, rgba(26,23,20,0.12) 60%, transparent 100%);
+    display: flex; align-items: flex-end; justify-content: flex-start;
+    padding: 18px 20px; opacity: 0; transition: opacity 0.3s;
+  }
+  .clickable-img:hover .img-overlay { opacity: 1; }
+  .img-overlay-text {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: #fff; font-size: 0.85rem; font-weight: 600;
+    background: rgba(212,82,42,0.85); padding: 8px 16px;
+    border-radius: 50px; backdrop-filter: blur(4px);
+  }
+  .img-fallback {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; background: var(--bg2);
+  }
+
+  /* ── PROJECT DETAIL OVERLAY ── */
+  .detail-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--bg);
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+  .detail-overlay.open { transform: translateX(0); }
+
+  .detail-topbar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(245,242,238,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .detail-back {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: none; border: 1.5px solid var(--border);
+    padding: 9px 20px; border-radius: 50px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500;
+    color: var(--ink); transition: border-color 0.2s, background 0.2s;
+  }
+  .detail-back:hover { border-color: var(--ink); background: var(--bg2); }
+  .detail-nav { display: flex; align-items: center; gap: 12px; }
+  .det-nav-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1.5px solid var(--border); background: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink); transition: border-color 0.2s, background 0.2s;
+  }
+  .det-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .det-counter { font-size: 0.82rem; color: var(--ink2); font-weight: 500; min-width: 40px; text-align: center; }
+
+  .detail-body { max-width: 900px; margin: 0 auto; padding: 0 48px 80px; }
+
+  .detail-hero-img {
+    width: 100%; aspect-ratio: 16/7;
+    border-radius: 0 0 24px 24px; overflow: hidden;
+    margin-bottom: 48px; background: var(--bg2);
+  }
+  .detail-hero-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  .detail-content {}
+  .detail-meta-row {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
+  }
+  .detail-cat {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .detail-year {
+    font-size: 0.82rem; color: var(--ink2);
+    background: var(--bg2); padding: 3px 12px; border-radius: 50px;
+  }
+  .detail-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.025em; color: var(--ink);
+    margin-bottom: 20px; line-height: 1.15;
+  }
+  .detail-summary {
+    font-size: 1.05rem; line-height: 1.8; color: var(--ink2);
+    margin-bottom: 40px; font-weight: 300; max-width: 680px;
+  }
+
+  .detail-stats-row {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    margin-bottom: 48px; padding: 28px 32px;
+    background: var(--ink); border-radius: 16px;
+  }
+  .detail-stat { flex: 1; min-width: 100px; }
+  .detail-stat-num {
+    font-family: 'Syne', sans-serif; font-size: 1.8rem;
+    font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 4px;
+  }
+  .detail-stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .detail-sections { display: flex; flex-direction: column; gap: 40px; margin-bottom: 48px; }
+  .detail-section-block {}
+  .detail-section-title {
+    font-family: 'Syne', sans-serif; font-size: 1.1rem;
+    font-weight: 700; color: var(--ink); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .detail-section-title::before {
+    content: ''; width: 4px; height: 20px;
+    background: var(--accent); border-radius: 2px;
+  }
+  .detail-section-body {
+    font-size: 0.97rem; line-height: 1.8; color: var(--ink2); font-weight: 300;
+  }
+  .detail-section-img {
+    width: 100%; border-radius: 14px; overflow: hidden;
+    margin-top: 20px; aspect-ratio: 16/8; background: var(--bg2);
+  }
+  .detail-section-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .detail-tags-block {
+    padding: 28px 32px; background: var(--bg2);
+    border-radius: 16px; border: 1px solid var(--border);
+  }
+  .detail-tags-label {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink2); margin-bottom: 16px;
+  }
+  .detail-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .detail-tag {
+    font-size: 0.84rem; padding: 7px 16px;
+    border-radius: 50px; background: var(--card);
+    border: 1px solid var(--border); color: var(--ink); font-weight: 500;
+  }
+  .detail-tag.accent { background: rgba(212,82,42,0.1); color: var(--accent); border-color: rgba(212,82,42,0.2); }
+
+  @media (max-width: 900px) {
+    .detail-topbar { padding: 14px 20px; }
+    .detail-body { padding: 0 20px 60px; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.7s ease both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.22s; }
+  .delay-3 { animation-delay: 0.34s; }
+  .delay-4 { animation-delay: 0.46s; }
+  .delay-5 { animation-delay: 0.58s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; text-align: center; }
+    .hero-right { display: none; }
+    .hero-desc { margin: 0 auto 36px; }
+    .hero-actions { justify-content: center; }
+    section { padding: 70px 24px; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">YN<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-bg-grid"></div>
+
+  <div class="hero-left">
+    <p class="hero-eyebrow fade-up">Mechanical Design Engineer</p>
+    <h1 class="fade-up delay-1">
+      Your Name<span class="line2">Here.</span>
+    </h1>
+    <p class="hero-desc fade-up delay-2">
+      Designing precision-engineered solutions where form meets function. Specializing in CAD modeling, structural analysis, and product development for complex mechanical systems.
+    </p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="#projects" class="btn-primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        View My Work
+      </a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right fade-up delay-4">
+    <div class="hero-card">
+      <div class="hero-card-top">
+        <div class="hero-avatar">YN</div>
+        <div class="hero-card-name">
+          <h3>Your Name</h3>
+          <p>Mechanical Design Engineer</p>
+        </div>
+      </div>
+      <div class="hero-card-body">
+        <div class="stat-row">
+          <div class="stat">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">Yrs Exp</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">30+</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">12</div>
+            <div class="stat-label">Clients</div>
+          </div>
+        </div>
+        <div class="expertise-tags">
+          <span class="tag accent">SolidWorks</span>
+          <span class="tag accent">CATIA</span>
+          <span class="tag">FEA/CFD</span>
+          <span class="tag">GD&T</span>
+          <span class="tag">Product Dev</span>
+          <span class="tag">AutoCAD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image-block">
+      <div class="about-photo-placeholder">
+        <svg width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Add your photo here</span>
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-num">5+</div>
+        <div class="about-badge-text">Years of Experience</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">About Me</p>
+      <h2>Passionate About Precision Engineering</h2>
+      <p class="about-body">
+        I'm a mechanical design engineer with a deep passion for creating elegant solutions to complex engineering challenges. With expertise spanning from concept to manufacturing, I bridge the gap between innovative design and practical implementation.
+        <br><br>
+        My approach combines rigorous technical analysis with creative problem-solving, ensuring every design is not only functionally superior but also manufacturable and cost-effective.
+      </p>
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <div class="highlight-icon">⚙️</div>
+          <div class="highlight-text">
+            <strong>Design & Modeling</strong>
+            <span>Expert in 3D CAD modeling, technical drawings, and design for manufacturing</span>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">📐</div>
+          <div class="highlight-text">
+            <strong>Simulation & Analysis</strong>
+            <span>FEA, CFD, and structural analysis to validate designs before prototyping</span>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-icon">🔩</div>
+          <div class="highlight-text">
+            <strong>Product Development</strong>
+            <span>Full product lifecycle from concept through production and quality assurance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Work Experience</p>
+  <h2>Career Journey</h2>
+  <p class="section-sub">A track record of delivering high-impact mechanical design solutions across industries.</p>
+
+  <div class="exp-timeline">
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Senior Mechanical Design Engineer</div>
+          <div class="exp-company">Company Name · Location</div>
+        </div>
+        <div class="exp-period">2022 – Present</div>
+      </div>
+      <p class="exp-desc">Led end-to-end design of precision mechanical assemblies, collaborating with cross-functional teams to deliver 12+ products on time and within budget. Reduced component weight by 18% through topology optimization while maintaining structural integrity.</p>
+      <div class="exp-tags">
+        <span class="tag">SolidWorks</span><span class="tag">FEA</span><span class="tag">DFMEA</span><span class="tag">Team Leadership</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Mechanical Design Engineer</div>
+          <div class="exp-company">Previous Company · Location</div>
+        </div>
+        <div class="exp-period">2020 – 2022</div>
+      </div>
+      <p class="exp-desc">Developed detailed CAD models and engineering drawings for industrial machinery components. Conducted structural and thermal simulations to optimize performance, achieving a 25% reduction in manufacturing costs through design for manufacturability improvements.</p>
+      <div class="exp-tags">
+        <span class="tag">CATIA V5</span><span class="tag">AutoCAD</span><span class="tag">GD&T</span><span class="tag">CFD</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Junior Design Engineer</div>
+          <div class="exp-company">First Company · Location</div>
+        </div>
+        <div class="exp-period">2018 – 2020</div>
+      </div>
+      <p class="exp-desc">Supported senior engineers in designing and prototyping mechanical components. Assisted in preparing technical documentation, BOMs, and engineering change orders while developing proficiency in industry-standard CAD tools.</p>
+      <div class="exp-tags">
+        <span class="tag">SolidWorks</span><span class="tag">Prototyping</span><span class="tag">Technical Documentation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Portfolio</p>
+  <h2>Selected Projects</h2>
+  <p class="section-sub">Click any project image to explore the full case study.</p>
+
+  <div class="projects-grid">
+
+    <!-- PROJECT 1 — FEATURED -->
+    <div class="project-card featured" data-project="0">
+      <div class="project-img dark clickable-img" onclick="openProject(0)" title="Click to view project details">
+        <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=900&q=80"
+             alt="Aerospace bracket topology optimization"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-fallback" style="display:none">🔧</div>
+        <div class="img-overlay">
+          <span class="img-overlay-text">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            View Case Study
+          </span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="project-cat">Structural Design</span>
+          <span class="project-year">2024</span>
+        </div>
+        <div class="project-title">Lightweight Aerospace Bracket — Topology Optimized</div>
+        <p class="project-desc">Redesigned a critical aerospace mounting bracket using topology optimization, achieving a 22% weight reduction while exceeding original safety margins.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">SolidWorks</span><span class="tag">ANSYS</span><span class="tag">Topology Optimization</span><span class="tag accent">Featured</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card" data-project="1">
+      <div class="project-img alt clickable-img" onclick="openProject(1)" title="Click to view project details">
+        <img src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=700&q=80"
+             alt="Automated gripper assembly"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-fallback" style="display:none">⚙️</div>
+        <div class="img-overlay">
+          <span class="img-overlay-text">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            View Case Study
+          </span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="project-cat">Mechanism Design</span>
+          <span class="project-year">2023</span>
+        </div>
+        <div class="project-title">Automated Gripper Assembly</div>
+        <p class="project-desc">Designed a pneumatic gripper with adaptive fingers for a robotic assembly line, handling components from 5mm to 120mm diameter.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">CATIA</span><span class="tag">Pneumatics</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card" data-project="2">
+      <div class="project-img clickable-img" onclick="openProject(2)" title="Click to view project details">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=700&q=80"
+             alt="Heat exchanger CFD analysis"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-fallback" style="display:none">🌡️</div>
+        <div class="img-overlay">
+          <span class="img-overlay-text">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            View Case Study
+          </span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="project-cat">Thermal Analysis</span>
+          <span class="project-year">2023</span>
+        </div>
+        <div class="project-title">Heat Exchanger — CFD Optimized</div>
+        <p class="project-desc">Optimized fin geometry on a compact heat exchanger using CFD analysis, improving thermal efficiency by 31% without increasing pressure drop.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">ANSYS Fluent</span><span class="tag">CFD</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 -->
+    <div class="project-card" data-project="3">
+      <div class="project-img alt clickable-img" onclick="openProject(3)" title="Click to view project details">
+        <img src="https://images.unsplash.com/photo-1609619385002-f40f1df9b7eb?w=700&q=80"
+             alt="Consumer product enclosure"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="img-fallback" style="display:none">🏗️</div>
+        <div class="img-overlay">
+          <span class="img-overlay-text">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            View Case Study
+          </span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="project-cat">Product Development</span>
+          <span class="project-year">2022</span>
+        </div>
+        <div class="project-title">Consumer Product Enclosure</div>
+        <p class="project-desc">Full product development cycle for a consumer electronics enclosure — from sketches to injection-molded production parts with IP54 rating.</p>
+      </div>
+      <div class="project-footer">
+        <span class="tag">SolidWorks</span><span class="tag">Injection Molding</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PROJECT DETAIL PAGE (full-screen overlay)
+════════════════════════════════════════ -->
+<div id="project-detail" class="detail-overlay" role="dialog" aria-modal="true">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeProject()">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Portfolio
+    </button>
+    <div class="detail-nav">
+      <button class="det-nav-btn" id="btn-prev" onclick="navProject(-1)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <span id="det-counter" class="det-counter">1 / 4</span>
+      <button class="det-nav-btn" id="btn-next" onclick="navProject(1)">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="detail-body">
+    <div class="detail-hero-img" id="det-hero-img"></div>
+
+    <div class="detail-content">
+      <div class="detail-meta-row">
+        <span class="detail-cat" id="det-cat"></span>
+        <span class="detail-year" id="det-year"></span>
+      </div>
+      <h1 class="detail-title" id="det-title"></h1>
+      <p class="detail-summary" id="det-summary"></p>
+
+      <div class="detail-stats-row" id="det-stats"></div>
+
+      <div class="detail-sections" id="det-sections"></div>
+
+      <div class="detail-tags-block">
+        <p class="detail-tags-label">Tools & Technologies</p>
+        <div class="detail-tags" id="det-tags"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Expertise</p>
+  <h2 style="color:#fff;">Tools & Technical Skills</h2>
+  <p class="section-sub">Proficient across the full mechanical design and simulation toolchain.</p>
+
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-icon">🖥️</div>
+      <div class="skill-group-title">CAD Software</div>
+      <div class="skill-list">
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">SolidWorks</span><span class="skill-pct">95%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">CATIA V5</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">AutoCAD</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">Fusion 360</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-icon">📊</div>
+      <div class="skill-group-title">Simulation & Analysis</div>
+      <div class="skill-list">
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">ANSYS (FEA)</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">CFD (Fluent)</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">Nastran</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">MATLAB</span><span class="skill-pct">72%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-icon">🔩</div>
+      <div class="skill-group-title">Engineering Methods</div>
+      <div class="skill-list">
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">GD&T</span><span class="skill-pct">92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">DFMEA / PFMEA</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">DFM / DFA</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">Tolerance Analysis</span><span class="skill-pct">83%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:83%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-icon">🏭</div>
+      <div class="skill-group-title">Manufacturing</div>
+      <div class="skill-list">
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">CNC Machining</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">Sheet Metal</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">Injection Molding</span><span class="skill-pct">78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-item-header"><span class="skill-name">3D Printing / RP</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p class="section-label">Contact</p>
+      <h2>Let's Build Something Great</h2>
+      <p>Open to new projects, freelance design work, and full-time opportunities. Whether you have a complex design challenge or just want to connect — reach out!</p>
+      <div class="contact-links">
+        <a href="mailto:your@email.com" class="contact-link">
+          <div class="contact-link-icon">✉️</div>
+          <div class="contact-link-text">
+            <strong>Email</strong>
+            <span>your@email.com</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank">
+          <div class="contact-link-icon">💼</div>
+          <div class="contact-link-text">
+            <strong>LinkedIn</strong>
+            <span>linkedin.com/in/yourprofile</span>
+          </div>
+        </a>
+        <a href="#" class="contact-link">
+          <div class="contact-link-icon">📍</div>
+          <div class="contact-link-text">
+            <strong>Location</strong>
+            <span>Your City, Country</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-title">Send a Message</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="jane@company.com">
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Project inquiry / Collaboration">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell me about your project or inquiry..."></textarea>
+      </div>
+      <button class="btn-submit">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#hero" class="footer-logo">YN<span>.</span></a>
+  <p>© 2025 Your Name · Mechanical Design Engineer</p>
+  <p>Built with ❤️ for precision engineering</p>
+</footer>
+
+<script>
+const PROJECTS = [
+  {
+    id: 0,
+    cat: 'Structural Design',
+    year: '2024',
+    title: 'Lightweight Aerospace Bracket — Topology Optimized',
+    summary: 'A critical aerospace mounting bracket was completely redesigned using topology optimization techniques in SolidWorks and validated through ANSYS FEA. The project achieved a 22% mass reduction while improving the safety factor from 1.8 to 2.3, exceeding original structural requirements.',
+    heroImg: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=1200&q=85',
+    stats: [
+      { num: '22%', label: 'Weight Reduced' },
+      { num: '2.3×', label: 'Safety Factor' },
+      { num: '8 wks', label: 'Project Duration' },
+      { num: '0', label: 'Prototype Failures' },
+    ],
+    sections: [
+      {
+        title: 'Problem Statement',
+        body: 'The original bracket was over-designed using legacy methods, resulting in unnecessary mass penalty on a weight-critical airframe assembly. The brief was to reduce mass by at least 15% without compromising structural integrity under multi-axis loading conditions including vibration, thermal cycling, and peak static loads.',
+        img: null,
+      },
+      {
+        title: 'Design & Simulation Process',
+        body: 'Using SolidWorks Simulation, the design space was defined and load cases mapped from flight envelope data. Topology optimization was run iteratively to identify optimal material distribution. The resulting organic form was smoothed and converted into a manufacturable geometry, then re-validated with a full FEA study including mesh convergence analysis and factor-of-safety checks.',
+        img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80',
+      },
+      {
+        title: 'Results & Validation',
+        body: 'Final bracket mass reduced from 1.42 kg to 1.10 kg (22.5% reduction). Physical prototypes were CNC machined from 7075-T6 aluminium and subjected to tensile, fatigue, and vibration testing. All samples passed at 150% of design load. The design was approved for production and is currently flying in commercial service.',
+        img: null,
+      },
+    ],
+    tags: [
+      { label: 'SolidWorks', accent: false },
+      { label: 'ANSYS Mechanical', accent: false },
+      { label: 'Topology Optimization', accent: true },
+      { label: 'FEA', accent: false },
+      { label: '7075-T6 Aluminium', accent: false },
+      { label: 'GD&T', accent: false },
+      { label: 'CNC Machining', accent: false },
+    ],
+  },
+  {
+    id: 1,
+    cat: 'Mechanism Design',
+    year: '2023',
+    title: 'Adaptive Pneumatic Gripper Assembly',
+    summary: 'Designed an adaptive pneumatic gripper system for an automotive assembly robot, capable of handling cylindrical and prismatic components ranging from 5 mm to 120 mm diameter with a single tool change. The design reduced cycle time by 18% and eliminated 3 manual tool-change operations per shift.',
+    heroImg: 'https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1200&q=85',
+    stats: [
+      { num: '5–120mm', label: 'Grip Range' },
+      { num: '18%', label: 'Cycle Time Saved' },
+      { num: '45N', label: 'Max Grip Force' },
+      { num: '3', label: 'Tool Changes Removed' },
+    ],
+    sections: [
+      {
+        title: 'Challenge',
+        body: 'The existing robotic cell used three fixed grippers for different component sizes, requiring manual intervention during production changeovers. The goal was to design a single adaptive gripper that could handle the full size range without adjustment, while maintaining precise grip force control to avoid part damage.',
+        img: null,
+      },
+      {
+        title: 'Mechanism Design',
+        body: 'A parallelogram linkage mechanism was designed with dual-acting pneumatic cylinders providing both primary grip force and adaptive jaw spread. CATIA V5 was used for kinematic analysis and motion simulation. The jaw geometry was profiled to ensure stable contact across the full diameter range. A force-limiting valve assembly prevents overload on delicate components.',
+        img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900&q=80',
+      },
+      {
+        title: 'Outcome',
+        body: 'The gripper was prototyped using SLA and then machined in anodised 6061-T6 aluminium. After integration testing, it eliminated all three manual changeovers and improved throughput by 18%. The gripper has been running continuously for 14 months with zero maintenance interventions.',
+        img: null,
+      },
+    ],
+    tags: [
+      { label: 'CATIA V5', accent: false },
+      { label: 'Kinematic Analysis', accent: true },
+      { label: 'Pneumatics', accent: false },
+      { label: 'SLA Prototyping', accent: false },
+      { label: 'Mechanism Design', accent: true },
+      { label: '6061-T6 Aluminium', accent: false },
+    ],
+  },
+  {
+    id: 2,
+    cat: 'Thermal Analysis',
+    year: '2023',
+    title: 'Compact Heat Exchanger — CFD Optimized Fin Geometry',
+    summary: 'Performed a full CFD-driven geometry optimization on a compact plate-fin heat exchanger for an industrial power electronics cooling application. The redesigned fin geometry improved thermal efficiency by 31% without increasing pressure drop, enabling the client to reduce the heat exchanger footprint by 20%.',
+    heroImg: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1200&q=85',
+    stats: [
+      { num: '31%', label: 'Thermal Efficiency Gain' },
+      { num: '0%', label: 'Pressure Drop Increase' },
+      { num: '20%', label: 'Footprint Reduction' },
+      { num: '6', label: 'Fin Variants Tested' },
+    ],
+    sections: [
+      {
+        title: 'Background',
+        body: 'The client\'s existing heat exchanger was underperforming in high-power density conditions, causing thermal throttling in the electronics it cooled. A geometry-level redesign was preferred over increasing flow rate (which would require a larger pump), so CFD optimization was chosen as the primary approach.',
+        img: null,
+      },
+      {
+        title: 'CFD Methodology',
+        body: 'Six fin geometry variants were modeled in ANSYS Fluent using a conjugate heat transfer setup. Boundary conditions were derived from measured operating data. A parametric sweep was conducted on fin pitch, height, and offset pattern. Mesh independence studies were run on each candidate before final comparison. The offset strip fin pattern outperformed all louvered and plain alternatives.',
+        img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80',
+      },
+      {
+        title: 'Results',
+        body: 'The optimized offset strip fin geometry increased the heat transfer coefficient by 31% at constant flow rate and pressure drop. Physical prototypes were tested on a calibrated test rig and results correlated within 4% of simulation predictions. The client implemented the design in production within 10 weeks, achieving the target footprint reduction.',
+        img: null,
+      },
+    ],
+    tags: [
+      { label: 'ANSYS Fluent', accent: false },
+      { label: 'CFD', accent: true },
+      { label: 'Conjugate Heat Transfer', accent: false },
+      { label: 'Parametric Study', accent: false },
+      { label: 'Thermal Management', accent: true },
+      { label: 'MATLAB', accent: false },
+    ],
+  },
+  {
+    id: 3,
+    cat: 'Product Development',
+    year: '2022',
+    title: 'Consumer Electronics Enclosure — Full DFM Cycle',
+    summary: 'Led mechanical design and DFM for a consumer-grade smart home device enclosure, taking the product from industrial design sketches through to first-off-tool injection-moulded parts. The final housing achieved IP54 ingress protection, passed 1.5 m drop testing, and hit target COGS within 4% on first tool shots.',
+    heroImg: 'https://images.unsplash.com/photo-1609619385002-f40f1df9b7eb?w=1200&q=85',
+    stats: [
+      { num: 'IP54', label: 'Ingress Rating' },
+      { num: '1.5m', label: 'Drop Test Height' },
+      { num: '4%', label: 'COGS Variance' },
+      { num: '14 wks', label: 'Concept to T1 Tool' },
+    ],
+    sections: [
+      {
+        title: 'Scope',
+        body: 'The project covered all mechanical elements of a Wi-Fi connected sensor hub: outer shell halves, internal chassis, PCB mounting bosses, antenna clearance zones, speaker grille, USB-C port access, wall-mount keyhole features, and the IP54 gasket seal system. SolidWorks was used for all parametric modelling and drawing release.',
+        img: null,
+      },
+      {
+        title: 'DFM & Tooling Collaboration',
+        body: 'Multiple DFM reviews were conducted with the injection moulder through each design iteration. Draft angles, wall thickness uniformity, gate locations, and sink mark mitigation were addressed before tooling sign-off. A DFMEA was completed to identify and mitigate the top 10 risk items. Tolerance stack-up analysis was performed on all critical assembly interfaces using 1D worst-case and RSS methods.',
+        img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900&q=80',
+      },
+      {
+        title: 'Validation & Production',
+        body: 'T1 tool shots were reviewed against drawings; 6 of 8 critical dimensions were within tolerance on first run. Two minor tool amendments were completed before T2 samples, which fully passed dimensional inspection, IP54 testing, 1.5 m drop test (6 faces + 4 corners), and UL thermal cycling. The product launched on schedule.',
+        img: null,
+      },
+    ],
+    tags: [
+      { label: 'SolidWorks', accent: false },
+      { label: 'Injection Moulding', accent: true },
+      { label: 'DFM / DFA', accent: false },
+      { label: 'DFMEA', accent: false },
+      { label: 'Tolerance Analysis', accent: false },
+      { label: 'GD&T', accent: false },
+      { label: 'IP54', accent: true },
+    ],
+  },
+];
+
+let currentProject = 0;
+
+function openProject(index) {
+  currentProject = index;
+  renderProject(index);
+  const overlay = document.getElementById('project-detail');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  overlay.scrollTop = 0;
+}
+
+function closeProject() {
+  document.getElementById('project-detail').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function navProject(dir) {
+  currentProject = (currentProject + dir + PROJECTS.length) % PROJECTS.length;
+  renderProject(currentProject);
+  document.getElementById('project-detail').scrollTop = 0;
+}
+
+function renderProject(index) {
+  const p = PROJECTS[index];
+
+  // topbar counter
+  document.getElementById('det-counter').textContent = `${index + 1} / ${PROJECTS.length}`;
+
+  // hero image
+  const heroEl = document.getElementById('det-hero-img');
+  heroEl.innerHTML = `<img src="${p.heroImg}" alt="${p.title}" loading="lazy">`;
+
+  // meta
+  document.getElementById('det-cat').textContent = p.cat;
+  document.getElementById('det-year').textContent = p.year;
+  document.getElementById('det-title').textContent = p.title;
+  document.getElementById('det-summary').textContent = p.summary;
+
+  // stats
+  document.getElementById('det-stats').innerHTML = p.stats.map(s =>
+    `<div class="detail-stat">
+      <div class="detail-stat-num">${s.num}</div>
+      <div class="detail-stat-label">${s.label}</div>
+    </div>`
+  ).join('');
+
+  // sections
+  document.getElementById('det-sections').innerHTML = p.sections.map(s =>
+    `<div class="detail-section-block">
+      <div class="detail-section-title">${s.title}</div>
+      <p class="detail-section-body">${s.body}</p>
+      ${s.img ? `<div class="detail-section-img"><img src="${s.img}" alt="${s.title}" loading="lazy"></div>` : ''}
+    </div>`
+  ).join('');
+
+  // tags
+  document.getElementById('det-tags').innerHTML = p.tags.map(t =>
+    `<span class="detail-tag${t.accent ? ' accent' : ''}">${t.label}</span>`
+  ).join('');
+}
+
+// Close on ESC key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeProject();
+  if (e.key === 'ArrowRight') { if (document.getElementById('project-detail').classList.contains('open')) navProject(1); }
+  if (e.key === 'ArrowLeft')  { if (document.getElementById('project-detail').classList.contains('open')) navProject(-1); }
+});
+</script>
+</body>
+</html>
