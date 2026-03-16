@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Garvit Srivastava</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar" class="scrolled">
+    <a href="index.html" class="nav-logo">GARVIT SRIVASTAVA</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="portfolio.html" class="nav-active">Portfolio</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PORTFOLIO HERO -->
+  <section id="portfolio-hero" class="portfolio-hero">
+    <p class="section-label reveal">Portfolio</p>
+    <h2 class="section-title reveal">My<br />Projects</h2>
+    <p class="section-sub reveal">A visual showcase of engineering projects spanning hydrogen mobility, automotive design, and advanced CAD solutions.</p>
+
+    <!-- FILTER BUTTONS -->
+    <div class="portfolio-filters reveal">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="hydrogen">Hydrogen</button>
+      <button class="filter-btn" data-filter="automotive">Automotive</button>
+      <button class="filter-btn" data-filter="rail">Rail</button>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PORTFOLIO GRID -->
+  <section id="portfolio-grid-section" class="portfolio-grid-section">
+    <div class="portfolio-grid">
+
+      <!-- Project 1: Arthurbus H2 Zero 12 -->
+      <div class="portfolio-card reveal" data-category="hydrogen">
+        <div class="portfolio-card-img">
+          <img
+            src="https://static.wixstatic.com/media/713a3a_bae1e3b3064a4a649ddf66f50f0e76d6~mv2.png/v1/fill/w_592,h_388,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/713a3a_bae1e3b3064a4a649ddf66f50f0e76d6~mv2.png"
+            alt="Arthurbus H2 Zero 12"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="portfolio-card-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="portfolio-card-overlay">
+            <span class="portfolio-view-btn">View Details</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <span class="portfolio-tag">Hydrogen</span>
+          <h3 class="portfolio-card-title">Arthurbus H2 Zero 12</h3>
+          <p class="portfolio-card-role">Project Lead</p>
+          <p class="portfolio-card-desc">Hydrogen vessel structure design with fixation support, safety features, and wire harness positioning. Served as single point of contact for structural modifications.</p>
+        </div>
+      </div>
+
+      <!-- Project 2: Stadler H2 Project -->
+      <div class="portfolio-card reveal" data-category="rail" style="transition-delay:.1s">
+        <div class="portfolio-card-img">
+          <img
+            src="https://static.wixstatic.com/media/713a3a_69b1ab94cf26410ebe1b2b2e4f0e6f0d~mv2.png/v1/fill/w_592,h_388,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/713a3a_69b1ab94cf26410ebe1b2b2e4f0e6f0d~mv2.png"
+            alt="Stadler H2 Project"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="portfolio-card-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="portfolio-card-overlay">
+            <span class="portfolio-view-btn">View Details</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <span class="portfolio-tag">Rail</span>
+          <h3 class="portfolio-card-title">Stadler H2 Project</h3>
+          <p class="portfolio-card-role">Project Engineer</p>
+          <p class="portfolio-card-desc">Designed fueling and defueling piping systems complying with manufacturing and simulation conditions. Drafted system, piping, and wire harness drawings for production.</p>
+        </div>
+      </div>
+
+      <!-- Project 3: Alstom TRAXX -->
+      <div class="portfolio-card reveal" data-category="rail" style="transition-delay:.2s">
+        <div class="portfolio-card-img">
+          <img
+            src="https://static.wixstatic.com/media/713a3a_1f0c9d0b01494fbebf3e44f8f54b52ef~mv2.png/v1/fill/w_592,h_388,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/713a3a_1f0c9d0b01494fbebf3e44f8f54b52ef~mv2.png"
+            alt="Alstom TRAXX"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="portfolio-card-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="portfolio-card-overlay">
+            <span class="portfolio-view-btn">View Details</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <span class="portfolio-tag">Rail</span>
+          <h3 class="portfolio-card-title">Alstom TRAXX</h3>
+          <p class="portfolio-card-role">CAD Design Lead</p>
+          <p class="portfolio-card-desc">Led 3D and 2D modifications of structural support for hydrogen powertrain. Created detailed 2D drawings for piping and priming areas.</p>
+        </div>
+      </div>
+
+      <!-- Project 4: Karsan H2 Bus -->
+      <div class="portfolio-card reveal" data-category="hydrogen" style="transition-delay:.3s">
+        <div class="portfolio-card-img">
+          <img
+            src="https://static.wixstatic.com/media/713a3a_53c0ea59ae984c61a5bdcfbadf8e3474~mv2.png/v1/fill/w_592,h_388,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/713a3a_53c0ea59ae984c61a5bdcfbadf8e3474~mv2.png"
+            alt="Karsan H2 Bus"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="portfolio-card-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="portfolio-card-overlay">
+            <span class="portfolio-view-btn">View Details</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <span class="portfolio-tag">Hydrogen</span>
+          <h3 class="portfolio-card-title">Karsan H2 Bus</h3>
+          <p class="portfolio-card-role">Project Lead</p>
+          <p class="portfolio-card-desc">Designed metal cage structure to support hydrogen vessel and provide constant hydrogen supply to fuel cell. Optimised assembly for maintenance and accessibility.</p>
+        </div>
+      </div>
+
+      <!-- Project 5: Lucid Gravity -->
+      <div class="portfolio-card reveal" data-category="automotive" style="transition-delay:.4s">
+        <div class="portfolio-card-img">
+          <img
+            src="https://static.wixstatic.com/media/713a3a_c0a48bbf5bba4d75a9edaa1e4bb0e73d~mv2.png/v1/fill/w_592,h_388,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/713a3a_c0a48bbf5bba4d75a9edaa1e4bb0e73d~mv2.png"
+            alt="Lucid Gravity"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="portfolio-card-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="portfolio-card-overlay">
+            <span class="portfolio-view-btn">View Details</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <span class="portfolio-tag">Automotive</span>
+          <h3 class="portfolio-card-title">Lucid Gravity</h3>
+          <p class="portfolio-card-role">CAD Engineer</p>
+          <p class="portfolio-card-desc">Implemented tooling modifications for manufacturability optimization. Performed detailed validation of 2D/3D design drawings for compliance with industry standards.</p>
+        </div>
+      </div>
+
+      <!-- Project 6: Volkswagen 426 -->
+      <div class="portfolio-card reveal" data-category="automotive" style="transition-delay:.5s">
+        <div class="portfolio-card-img">
+          <img
+            src="https://static.wixstatic.com/media/713a3a_1d7e55c04d9d4bfba5f3ad7e42a07ef7~mv2.png/v1/fill/w_592,h_388,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/713a3a_1d7e55c04d9d4bfba5f3ad7e42a07ef7~mv2.png"
+            alt="Volkswagen 426"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="portfolio-card-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <div class="portfolio-card-overlay">
+            <span class="portfolio-view-btn">View Details</span>
+          </div>
+        </div>
+        <div class="portfolio-card-body">
+          <span class="portfolio-tag">Automotive</span>
+          <h3 class="portfolio-card-title">Volkswagen 426</h3>
+          <p class="portfolio-card-role">CAD Engineer</p>
+          <p class="portfolio-card-desc">Updated and revised 2D/3D CAD drawings based on design changes and tooling feedback. Applied Volkswagen-specific standards for compliance and accuracy.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CTA SECTION -->
+  <section id="portfolio-cta" class="portfolio-cta">
+    <div class="cta-content reveal">
+      <h2 class="section-title">Interested in<br />Working Together?</h2>
+      <p class="section-sub" style="margin-bottom:2rem;">Have a project that requires precise engineering and design expertise? Let's connect.</p>
+      <a href="index.html#contact" class="btn btn-primary">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2035 by <strong>Garvit Sri.</strong></p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Accessibility Statement</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
